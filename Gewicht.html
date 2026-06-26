@@ -48,6 +48,19 @@
        border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:18px}
 
   /* Exercise list */
+  /* Filter dropdown */
+  .filterbar{display:flex;align-items:center;gap:12px;margin:0 2px 16px}
+  .selwrap{position:relative;flex:1}
+  .filtersel{-webkit-appearance:none;appearance:none;width:100%;background:var(--surface);
+       border:1px solid var(--line);border-radius:14px;padding:13px 42px 13px 16px;
+       color:var(--text);font-size:15px;font-weight:700;letter-spacing:-.01em;outline:none}
+  .filtersel:focus{border-color:var(--amber)}
+  .selwrap .caret{position:absolute;right:15px;top:50%;transform:translateY(-50%);
+       color:var(--amber-2);font-size:12px;pointer-events:none}
+  .count{height:34px;padding:0 12px;border-radius:999px;background:var(--surface-2);
+       border:1px solid var(--line);color:var(--muted);font-size:14px;font-weight:800;
+       display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+
   .list{display:flex;flex-direction:column;gap:12px;padding-bottom:120px}
   .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
        padding:16px 18px;display:flex;align-items:center;gap:14px;width:100%;text-align:left}
@@ -223,49 +236,82 @@ let view={name:"home",exId:null};
 
 function render(){view.name==="home"?renderHome():renderDetail();}
 
-function renderHome(){
-  let body="";
-  if(state.exercises.length===0){
-    body=`<div class="empty">
-      <div class="big">🏋️</div>
-      <p style="color:var(--text);font-size:18px;font-weight:700">Nog geen oefeningen</p>
-      <p>Voeg je eerste oefening toe en log hoeveel kilo je tilt. Je voortgang verschijnt hier vanzelf.</p>
-    </div>`;
-  }else{
-    const cards=state.exercises.map(ex=>{
-      const last=lastLog(ex.id), prev=prevLog(ex.id);
-      let val=`<span class="kg" style="color:var(--muted)">—</span>`, delta="", sub="Nog niet gelogd";
-      if(last){
-        val=`<span class="kg tnum">${num(last.weight)}<small>kg</small></span>`;
-        sub=`Laatst · ${fmtDate(last.date)}`;
-        if(prev){
-          const d=last.weight-prev.weight;
-          const cls=d>0?"up":d<0?"down":"flat";
-          const arr=d>0?"↑":d<0?"↓":"→";
-          delta=`<div class="delta ${cls} tnum">${arr} ${d>0?"+":""}${num(d)} kg</div>`;
-        }
-      }
-      const cat=ex.category?`<span class="chip">${esc(ex.category)}</span>`:"";
-      return `<button class="card" onclick="openDetail('${ex.id}')">
-        <div class="meta">
-          <div class="name">${esc(ex.name)}</div>
-          <div class="sub">${cat}<span>${sub}</span></div>
-        </div>
-        <div class="val">${val}${delta}</div>
-      </button>`;
-    }).join("");
-    body=`<div class="list">${cards}</div>`;
+let homeFilter="__all__";
+function changeFilter(v){homeFilter=v;renderHome();}
+
+function exerciseCard(ex){
+  const last=lastLog(ex.id), prev=prevLog(ex.id);
+  let val=`<span class="kg" style="color:var(--muted)">—</span>`, delta="", sub="Nog niet gelogd";
+  if(last){
+    val=`<span class="kg tnum">${num(last.weight)}<small>kg</small></span>`;
+    sub=`Laatst · ${fmtDate(last.date)}`;
+    if(prev){
+      const d=last.weight-prev.weight;
+      const cls=d>0?"up":d<0?"down":"flat";
+      const arr=d>0?"↑":d<0?"↓":"→";
+      delta=`<div class="delta ${cls} tnum">${arr} ${d>0?"+":""}${num(d)} kg</div>`;
+    }
   }
-  app.innerHTML=`
+  const cat=ex.category?`<span class="chip">${esc(ex.category)}</span>`:"";
+  return `<button class="card" onclick="openDetail('${ex.id}')">
+    <div class="meta">
+      <div class="name">${esc(ex.name)}</div>
+      <div class="sub">${cat}<span>${sub}</span></div>
+    </div>
+    <div class="val">${val}${delta}</div>
+  </button>`;
+}
+
+function renderHome(){
+  const topbar=`
     <div class="topbar">
       <div class="grow">
         <div class="eyebrow">Fitnesslog</div>
         <h1>Mijn oefeningen</h1>
       </div>
       <button class="iconbtn" onclick="openBackup()" aria-label="Back-up">⚙︎</button>
-    </div>
-    ${body}
-    <button class="fab" onclick="openExercise()">＋ Oefening</button>`;
+    </div>`;
+  const fab=`<button class="fab" onclick="openExercise()">＋ Oefening</button>`;
+
+  if(state.exercises.length===0){
+    app.innerHTML=`${topbar}
+      <div class="empty">
+        <div class="big">🏋️</div>
+        <p style="color:var(--text);font-size:18px;font-weight:700">Nog geen oefeningen</p>
+        <p>Voeg je eerste oefening toe en log hoeveel kilo je tilt. Je voortgang verschijnt hier vanzelf.</p>
+      </div>${fab}`;
+    return;
+  }
+
+  // welke spiergroepen komen voor (in vaste volgorde), plus 'zonder spiergroep'
+  const present=[...new Set(state.exercises.map(e=>e.category).filter(Boolean))]
+    .sort((a,b)=>CATS.indexOf(a)-CATS.indexOf(b));
+  const hasUncat=state.exercises.some(e=>!e.category);
+  if(homeFilter!=="__all__"&&homeFilter!=="__none__"&&!present.includes(homeFilter))homeFilter="__all__";
+  if(homeFilter==="__none__"&&!hasUncat)homeFilter="__all__";
+
+  const opts=[`<option value="__all__"${homeFilter==="__all__"?" selected":""}>Alle spiergroepen</option>`];
+  present.forEach(c=>opts.push(`<option value="${esc(c)}"${homeFilter===c?" selected":""}>${esc(c)}</option>`));
+  if(hasUncat)opts.push(`<option value="__none__"${homeFilter==="__none__"?" selected":""}>Zonder spiergroep</option>`);
+
+  let shown=state.exercises;
+  if(homeFilter==="__none__")shown=state.exercises.filter(e=>!e.category);
+  else if(homeFilter!=="__all__")shown=state.exercises.filter(e=>e.category===homeFilter);
+
+  const filterbar=`<div class="filterbar">
+      <div class="selwrap">
+        <select class="filtersel" onchange="changeFilter(this.value)" aria-label="Filter op spiergroep">${opts.join("")}</select>
+        <span class="caret">▼</span>
+      </div>
+      <span class="count tnum">${shown.length}</span>
+    </div>`;
+
+  const cards=shown.map(exerciseCard).join("");
+  const list=cards
+    ?`<div class="list">${cards}</div>`
+    :`<div class="empty" style="margin-top:30px"><p>Geen oefeningen in deze spiergroep.</p></div>`;
+
+  app.innerHTML=`${topbar}${filterbar}${list}${fab}`;
 }
 
 function spark(id){
@@ -445,6 +491,7 @@ function saveExercise(id){
     if(ex){ex.name=name;ex.category=sheetCat;}
   }else{
     state.exercises.push({id:uid(),name,category:sheetCat,created:Date.now()});
+    homeFilter="__all__";
   }
   persist(); closeSheet(); render();
 }
