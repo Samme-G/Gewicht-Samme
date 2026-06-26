@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Gewicht">
+<meta name="theme-color" content="#0E1116">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" href="data:image/png;base64,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">
+<title>Gewicht — fitnesslog</title>
+<style>
+  :root{
+    --bg:#0E1116; --grad-top:#161A22; --surface:#171B22; --surface-2:#1F242E;
+    --line:#2A303B; --text:#EDF0F4; --muted:#8A93A3;
+    --amber:#FF8A3D; --amber-2:#FFB14E; --steel:#6C7A91;
+    --mint:#4ED9A4; --red:#FF6B6B;
+    --r:16px; --r-lg:22px;
+    --safe-top:env(safe-area-inset-top,0px);
+    --safe-bot:env(safe-area-inset-bottom,0px);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;height:100%}
+  body{
+    background:var(--bg);
+    background-image:linear-gradient(180deg,var(--grad-top),var(--bg) 280px);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    overscroll-behavior-y:contain;
+  }
+  button{font-family:inherit;color:inherit;border:0;background:none;cursor:pointer}
+  input,select{font-family:inherit}
+  .tnum{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+
+  /* App shell */
+  #app{max-width:560px;margin:0 auto;min-height:100%;padding:0 16px;
+       padding-top:calc(var(--safe-top) + 8px);}
+  .topbar{display:flex;align-items:center;gap:12px;padding:14px 2px 18px}
+  .topbar .back{font-size:26px;line-height:1;width:40px;height:40px;display:flex;
+       align-items:center;justify-content:center;margin-left:-8px;color:var(--amber-2)}
+  .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  h1{font-size:30px;line-height:1.05;letter-spacing:-.02em;margin:2px 0 0;font-weight:800}
+  .topbar .grow{flex:1;min-width:0}
+  .iconbtn{width:42px;height:42px;border-radius:12px;background:var(--surface);
+       border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:18px}
+
+  /* Exercise list */
+  /* Filter dropdown */
+  .filterbar{display:flex;align-items:center;gap:12px;margin:0 2px 16px}
+  .selwrap{position:relative;flex:1}
+  .filtersel{-webkit-appearance:none;appearance:none;width:100%;background:var(--surface);
+       border:1px solid var(--line);border-radius:14px;padding:13px 42px 13px 16px;
+       color:var(--text);font-size:15px;font-weight:700;letter-spacing:-.01em;outline:none}
+  .filtersel:focus{border-color:var(--amber)}
+  .selwrap .caret{position:absolute;right:15px;top:50%;transform:translateY(-50%);
+       color:var(--amber-2);font-size:12px;pointer-events:none}
+  .count{height:34px;padding:0 12px;border-radius:999px;background:var(--surface-2);
+       border:1px solid var(--line);color:var(--muted);font-size:14px;font-weight:800;
+       display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+
+  .list{display:flex;flex-direction:column;gap:12px;padding-bottom:120px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
+       padding:16px 18px;display:flex;align-items:center;gap:14px;width:100%;text-align:left}
+  .card:active{transform:scale(.99)}
+  .card .meta{flex:1;min-width:0}
+  .card .name{font-size:18px;font-weight:700;letter-spacing:-.01em;white-space:nowrap;
+       overflow:hidden;text-overflow:ellipsis}
+  .card .sub{display:flex;align-items:center;gap:8px;margin-top:5px;color:var(--muted);font-size:13px}
+  .chip{font-size:11px;font-weight:700;letter-spacing:.04em;padding:3px 9px;border-radius:999px;
+       background:var(--surface-2);color:var(--muted);text-transform:uppercase}
+  .card .val{text-align:right;flex-shrink:0}
+  .card .val .kg{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1}
+  .card .val .kg small{font-size:13px;font-weight:600;color:var(--muted);margin-left:2px}
+  .delta{font-size:12px;font-weight:700;margin-top:4px}
+  .delta.up{color:var(--mint)} .delta.down{color:var(--red)} .delta.flat{color:var(--muted)}
+
+  .empty{margin-top:40px;text-align:center;color:var(--muted);padding:0 20px}
+  .empty .big{font-size:46px;margin-bottom:10px}
+  .empty p{font-size:15px;line-height:1.5;margin:6px 0}
+
+  /* Floating add */
+  .fab{position:fixed;left:50%;transform:translateX(-50%);
+       bottom:calc(20px + var(--safe-bot));z-index:30;
+       background:linear-gradient(135deg,var(--amber-2),var(--amber));
+       color:#1a1206;font-weight:800;font-size:16px;letter-spacing:-.01em;
+       padding:15px 26px;border-radius:999px;display:flex;align-items:center;gap:8px;
+       box-shadow:0 10px 30px rgba(255,138,61,.35),0 2px 8px rgba(0,0,0,.4)}
+  .fab:active{transform:translateX(-50%) scale(.97)}
+
+  /* Detail hero */
+  .hero{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
+       padding:22px;margin-bottom:16px;position:relative;overflow:hidden}
+  .hero .lbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .hero .now{font-size:64px;font-weight:800;letter-spacing:-.03em;line-height:.95;margin-top:8px;
+       background:linear-gradient(135deg,#fff,#cfd6e2);-webkit-background-clip:text;background-clip:text;
+       -webkit-text-fill-color:transparent}
+  .hero .now small{font-size:22px;font-weight:600}
+  .hero .row{display:flex;gap:22px;margin-top:14px}
+  .hero .stat .n{font-size:17px;font-weight:800}
+  .hero .stat .k{font-size:11px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;font-weight:700;margin-top:2px}
+  .spark{margin-top:18px}
+
+  /* Section titles */
+  .sct{display:flex;align-items:center;justify-content:space-between;margin:22px 2px 12px}
+  .sct h2{font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;margin:0}
+
+  /* Log panel */
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px}
+  .bignum{display:flex;align-items:baseline;justify-content:center;gap:6px;margin:4px 0 6px}
+  .bignum input{width:170px;background:transparent;border:0;color:var(--text);text-align:center;
+       font-size:58px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;outline:none}
+  .bignum .u{font-size:22px;color:var(--muted);font-weight:700}
+  .steprow{display:flex;align-items:center;justify-content:center;gap:14px;margin:8px 0 4px}
+  .step{width:54px;height:54px;border-radius:16px;background:var(--surface-2);border:1px solid var(--line);
+       font-size:28px;font-weight:700;display:flex;align-items:center;justify-content:center;color:var(--amber-2)}
+  .step:active{background:var(--line)}
+  .plates{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:14px 0 4px}
+  .plate{padding:9px 13px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);
+       font-size:13px;font-weight:700;color:var(--text)}
+  .plate:active{border-color:var(--amber);color:var(--amber-2)}
+  .plate.minus{color:var(--muted)}
+
+  .fields{display:flex;gap:12px;margin-top:18px}
+  .field{flex:1}
+  .field label{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+       color:var(--muted);font-weight:700;margin-bottom:7px;text-align:center}
+  .counter{display:flex;align-items:center;justify-content:space-between;background:var(--surface-2);
+       border:1px solid var(--line);border-radius:14px;padding:6px}
+  .counter button{width:38px;height:38px;border-radius:10px;font-size:22px;font-weight:700;color:var(--amber-2)}
+  .counter .c{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums}
+  .daterow{margin-top:16px;display:flex;gap:12px;align-items:center}
+  .daterow input[type=date]{flex:1;background:var(--surface-2);border:1px solid var(--line);
+       border-radius:14px;padding:13px 14px;color:var(--text);font-size:15px}
+  .note{margin-top:12px;width:100%;background:var(--surface-2);border:1px solid var(--line);
+       border-radius:14px;padding:13px 14px;color:var(--text);font-size:15px}
+  .note::placeholder{color:var(--muted)}
+  .save{margin-top:16px;width:100%;background:linear-gradient(135deg,var(--amber-2),var(--amber));
+       color:#1a1206;font-weight:800;font-size:17px;padding:16px;border-radius:16px;letter-spacing:-.01em}
+  .save:active{filter:brightness(.95)}
+
+  /* History */
+  .hist{display:flex;flex-direction:column;gap:8px;padding-bottom:40px}
+  .hrow{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);
+       border-radius:14px;padding:12px 14px}
+  .hrow .hd{width:58px;flex-shrink:0;color:var(--muted);font-size:12px;font-weight:700;line-height:1.25}
+  .hrow .hw{flex:1}
+  .hrow .hw .w{font-size:18px;font-weight:800;font-variant-numeric:tabular-nums}
+  .hrow .hw .w small{font-size:12px;color:var(--muted);font-weight:600}
+  .hrow .hw .sr{font-size:12px;color:var(--muted);margin-top:2px}
+  .hrow .hw .nt{font-size:12px;color:var(--steel);margin-top:3px;font-style:italic}
+  .hrow .del{width:34px;height:34px;border-radius:10px;color:var(--muted);font-size:18px;flex-shrink:0}
+  .hrow .del:active{color:var(--red)}
+  .hrow .best{font-size:10px;font-weight:800;color:var(--amber);letter-spacing:.06em}
+
+  /* Modal / sheet */
+  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:40;display:none;
+       align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}
+  .scrim.on{display:flex}
+  .sheet{background:var(--bg);border:1px solid var(--line);border-top-left-radius:26px;
+       border-top-right-radius:26px;width:100%;max-width:560px;padding:8px 18px;
+       padding-bottom:calc(22px + var(--safe-bot));animation:rise .22s ease}
+  @keyframes rise{from{transform:translateY(30px);opacity:.6}to{transform:none;opacity:1}}
+  .grab{width:40px;height:5px;border-radius:3px;background:var(--line);margin:8px auto 14px}
+  .sheet h3{font-size:20px;font-weight:800;letter-spacing:-.01em;margin:0 0 16px}
+  .sheet label.fl{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+       color:var(--muted);font-weight:700;margin:14px 0 7px}
+  .sheet input.txt,.sheet select{width:100%;background:var(--surface);border:1px solid var(--line);
+       border-radius:14px;padding:14px;color:var(--text);font-size:16px}
+  .catwrap{display:flex;flex-wrap:wrap;gap:8px;margin-top:7px}
+  .catopt{padding:9px 14px;border-radius:999px;background:var(--surface);border:1px solid var(--line);
+       font-size:13px;font-weight:700;color:var(--muted)}
+  .catopt.sel{background:var(--surface-2);border-color:var(--amber);color:var(--amber-2)}
+  .sheet .actions{display:flex;gap:10px;margin-top:22px}
+  .btn{flex:1;padding:15px;border-radius:14px;font-weight:800;font-size:16px;text-align:center}
+  .btn.primary{background:linear-gradient(135deg,var(--amber-2),var(--amber));color:#1a1206}
+  .btn.ghost{background:var(--surface);border:1px solid var(--line);color:var(--text)}
+  .btn.danger{background:rgba(255,107,107,.12);border:1px solid rgba(255,107,107,.4);color:var(--red)}
+  .danger-link{color:var(--red);font-size:14px;font-weight:700;text-align:center;width:100%;
+       margin-top:14px;padding:8px}
+  .backup-row{display:flex;gap:10px;margin-top:8px}
+
+  .hidden{display:none!important}
+  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(96px + var(--safe-bot));
+       background:#fff;color:#10131a;font-weight:700;font-size:14px;padding:11px 18px;border-radius:999px;
+       z-index:60;box-shadow:0 8px 24px rgba(0,0,0,.4);opacity:0;transition:opacity .2s,transform .2s}
+  .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="scrim" id="scrim"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+
+/* ---------- storage: localStorage met in-memory fallback ---------- */
+const KEY="gewicht:v1";
+let memStore=null;
+function loadRaw(){
+  try{const v=localStorage.getItem(KEY);return v;}catch(e){return memStore;}
+}
+function saveRaw(v){
+  try{localStorage.setItem(KEY,v);}catch(e){memStore=v;}
+}
+let state={exercises:[],logs:[]};
+(function init(){
+  const raw=loadRaw();
+  if(raw){try{const p=JSON.parse(raw);state.exercises=p.exercises||[];state.logs=p.logs||[];}catch(e){}}
+})();
+function persist(){saveRaw(JSON.stringify(state));}
+
+/* ---------- helpers ---------- */
+const $=s=>document.querySelector(s);
+const app=$("#app"), scrim=$("#scrim"), toastEl=$("#toast");
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const todayISO=()=>{const d=new Date();const o=d.getTimezoneOffset();return new Date(d-o*60000).toISOString().slice(0,10);};
+const NL_M=["jan","feb","mrt","apr","mei","jun","jul","aug","sep","okt","nov","dec"];
+function fmtDate(iso){const[y,m,dd]=iso.split("-").map(Number);return dd+" "+NL_M[m-1];}
+function esc(s){return(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]));}
+function num(n){return Number.isInteger(n)?String(n):String(Math.round(n*100)/100).replace(".",",");}
+function toast(msg){toastEl.textContent=msg;toastEl.classList.add("on");clearTimeout(toast._t);
+  toast._t=setTimeout(()=>toastEl.classList.remove("on"),1700);}
+
+function logsFor(id){return state.logs.filter(l=>l.exerciseId===id).sort((a,b)=>(a.date<b.date?-1:a.date>b.date?1:a.created-b.created));}
+function lastLog(id){const l=logsFor(id);return l.length?l[l.length-1]:null;}
+function prevLog(id){const l=logsFor(id);return l.length>1?l[l.length-2]:null;}
+function bestWeight(id){const l=logsFor(id);return l.length?Math.max(...l.map(x=>x.weight)):0;}
+
+/* ---------- views ---------- */
+let view={name:"home",exId:null};
+
+function render(){view.name==="home"?renderHome():renderDetail();}
+
+let homeFilter="__all__";
+function changeFilter(v){homeFilter=v;renderHome();}
+
+function exerciseCard(ex){
+  const last=lastLog(ex.id), prev=prevLog(ex.id);
+  let val=`<span class="kg" style="color:var(--muted)">—</span>`, delta="", sub="Nog niet gelogd";
+  if(last){
+    val=`<span class="kg tnum">${num(last.weight)}<small>kg</small></span>`;
+    sub=`Laatst · ${fmtDate(last.date)}`;
+    if(prev){
+      const d=last.weight-prev.weight;
+      const cls=d>0?"up":d<0?"down":"flat";
+      const arr=d>0?"↑":d<0?"↓":"→";
+      delta=`<div class="delta ${cls} tnum">${arr} ${d>0?"+":""}${num(d)} kg</div>`;
+    }
+  }
+  const cat=ex.category?`<span class="chip">${esc(ex.category)}</span>`:"";
+  return `<button class="card" onclick="openDetail('${ex.id}')">
+    <div class="meta">
+      <div class="name">${esc(ex.name)}</div>
+      <div class="sub">${cat}<span>${sub}</span></div>
+    </div>
+    <div class="val">${val}${delta}</div>
+  </button>`;
+}
+
+function renderHome(){
+  const topbar=`
+    <div class="topbar">
+      <div class="grow">
+        <div class="eyebrow">Fitnesslog</div>
+        <h1>Mijn oefeningen</h1>
+      </div>
+      <button class="iconbtn" onclick="openBackup()" aria-label="Back-up">⚙︎</button>
+    </div>`;
+  const fab=`<button class="fab" onclick="openExercise()">＋ Oefening</button>`;
+
+  if(state.exercises.length===0){
+    app.innerHTML=`${topbar}
+      <div class="empty">
+        <div class="big">🏋️</div>
+        <p style="color:var(--text);font-size:18px;font-weight:700">Nog geen oefeningen</p>
+        <p>Voeg je eerste oefening toe en log hoeveel kilo je tilt. Je voortgang verschijnt hier vanzelf.</p>
+      </div>${fab}`;
+    return;
+  }
+
+  // welke spiergroepen komen voor (in vaste volgorde), plus 'zonder spiergroep'
+  const present=[...new Set(state.exercises.map(e=>e.category).filter(Boolean))]
+    .sort((a,b)=>CATS.indexOf(a)-CATS.indexOf(b));
+  const hasUncat=state.exercises.some(e=>!e.category);
+  if(homeFilter!=="__all__"&&homeFilter!=="__none__"&&!present.includes(homeFilter))homeFilter="__all__";
+  if(homeFilter==="__none__"&&!hasUncat)homeFilter="__all__";
+
+  const opts=[`<option value="__all__"${homeFilter==="__all__"?" selected":""}>Alle spiergroepen</option>`];
+  present.forEach(c=>opts.push(`<option value="${esc(c)}"${homeFilter===c?" selected":""}>${esc(c)}</option>`));
+  if(hasUncat)opts.push(`<option value="__none__"${homeFilter==="__none__"?" selected":""}>Zonder spiergroep</option>`);
+
+  let shown=state.exercises;
+  if(homeFilter==="__none__")shown=state.exercises.filter(e=>!e.category);
+  else if(homeFilter!=="__all__")shown=state.exercises.filter(e=>e.category===homeFilter);
+
+  const filterbar=`<div class="filterbar">
+      <div class="selwrap">
+        <select class="filtersel" onchange="changeFilter(this.value)" aria-label="Filter op spiergroep">${opts.join("")}</select>
+        <span class="caret">▼</span>
+      </div>
+      <span class="count tnum">${shown.length}</span>
+    </div>`;
+
+  const cards=shown.map(exerciseCard).join("");
+  const list=cards
+    ?`<div class="list">${cards}</div>`
+    :`<div class="empty" style="margin-top:30px"><p>Geen oefeningen in deze spiergroep.</p></div>`;
+
+  app.innerHTML=`${topbar}${filterbar}${list}${fab}`;
+}
+
+function spark(id){
+  const l=logsFor(id);
+  if(l.length<2) return `<div class="spark" style="color:var(--muted);font-size:13px">Log minstens twee keer om je progressie te zien.</div>`;
+  const data=l.slice(-12).map(x=>x.weight);
+  const W=480,H=110,P=8;
+  const mn=Math.min(...data),mx=Math.max(...data),rng=(mx-mn)||1;
+  const stepX=(W-P*2)/(data.length-1);
+  const pts=data.map((v,i)=>{const x=P+i*stepX;const y=P+(H-P*2)*(1-(v-mn)/rng);return[x,y];});
+  const line=pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ");
+  const area=line+` L ${pts[pts.length-1][0].toFixed(1)} ${H-P} L ${pts[0][0].toFixed(1)} ${H-P} Z`;
+  const dots=pts.map(p=>`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3" fill="#FF8A3D"/>`).join("");
+  return `<div class="spark"><svg viewBox="0 0 ${W} ${H}" width="100%" preserveAspectRatio="none" style="display:block">
+    <defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FF8A3D" stop-opacity=".30"/>
+      <stop offset="1" stop-color="#FF8A3D" stop-opacity="0"/></linearGradient></defs>
+    <path d="${area}" fill="url(#ag)"/>
+    <path d="${line}" fill="none" stroke="#FFB14E" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+    ${dots}</svg></div>`;
+}
+
+function renderDetail(){
+  const ex=state.exercises.find(e=>e.id===view.exId);
+  if(!ex){view={name:"home"};return render();}
+  const last=lastLog(ex.id), prev=prevLog(ex.id), best=bestWeight(ex.id);
+  const l=logsFor(ex.id);
+  let deltaTxt="—";
+  if(last&&prev){const d=last.weight-prev.weight;deltaTxt=(d>0?"+":"")+num(d)+" kg";}
+  const cat=ex.category?`<span class="chip" style="margin-left:6px">${esc(ex.category)}</span>`:"";
+
+  const histRows=[...l].reverse().map(item=>{
+    const isBest=item.weight===best&&best>0;
+    const note=item.note?`<div class="nt">${esc(item.note)}</div>`:"";
+    const sr=(item.sets?item.sets+" × ":"")+(item.reps?item.reps+" herh.":"");
+    return `<div class="hrow">
+      <div class="hd">${fmtDate(item.date)}<br>${item.date.slice(0,4)}</div>
+      <div class="hw">
+        <div class="w tnum">${num(item.weight)} <small>kg</small> ${isBest?'<span class="best">PR</span>':""}</div>
+        ${sr?`<div class="sr">${sr}</div>`:""}
+        ${note}
+      </div>
+      <button class="del" onclick="delLog('${item.id}')" aria-label="Verwijder">🗑</button>
+    </div>`;
+  }).join("");
+
+  app.innerHTML=`
+    <div class="topbar">
+      <button class="back" onclick="goHome()" aria-label="Terug">‹</button>
+      <div class="grow">
+        <div class="eyebrow">Oefening</div>
+        <h1 style="font-size:24px">${esc(ex.name)}${cat}</h1>
+      </div>
+      <button class="iconbtn" onclick="openExercise('${ex.id}')" aria-label="Bewerk">✏︎</button>
+    </div>
+
+    <div class="hero">
+      <div class="lbl">Huidig gewicht</div>
+      <div class="now tnum">${last?num(last.weight):"—"}<small>${last?" kg":""}</small></div>
+      <div class="row">
+        <div class="stat"><div class="n tnum">${best?num(best)+" kg":"—"}</div><div class="k">Record</div></div>
+        <div class="stat"><div class="n tnum">${deltaTxt}</div><div class="k">Vorige keer</div></div>
+        <div class="stat"><div class="n tnum">${l.length}</div><div class="k">Sessies</div></div>
+      </div>
+      ${spark(ex.id)}
+    </div>
+
+    <div class="sct"><h2>Nieuwe set loggen</h2></div>
+    <div class="panel">
+      <div class="bignum">
+        <input id="w" type="text" inputmode="decimal" value="${last?num(last.weight):"20"}" aria-label="Gewicht in kg">
+        <span class="u">kg</span>
+      </div>
+      <div class="steprow">
+        <button class="step" onclick="bump(-1.25)">−</button>
+        <button class="step" onclick="bump(1.25)">＋</button>
+      </div>
+      <div class="plates">
+        <button class="plate minus" onclick="bump(-2.5)">−2,5</button>
+        <button class="plate" onclick="bump(1.25)">+1,25</button>
+        <button class="plate" onclick="bump(2.5)">+2,5</button>
+        <button class="plate" onclick="bump(5)">+5</button>
+        <button class="plate" onclick="bump(10)">+10</button>
+        <button class="plate" onclick="bump(20)">+20</button>
+      </div>
+      <div class="fields">
+        <div class="field">
+          <label>Sets</label>
+          <div class="counter">
+            <button onclick="cnt('sets',-1)">−</button>
+            <span class="c tnum" id="sets">3</span>
+            <button onclick="cnt('sets',1)">＋</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Herhalingen</label>
+          <div class="counter">
+            <button onclick="cnt('reps',-1)">−</button>
+            <span class="c tnum" id="reps">10</span>
+            <button onclick="cnt('reps',1)">＋</button>
+          </div>
+        </div>
+      </div>
+      <div class="daterow">
+        <input id="date" type="date" value="${todayISO()}" max="${todayISO()}">
+      </div>
+      <input id="note" class="note" type="text" placeholder="Notitie (optioneel) — bv. tot falen, nieuwe machine…">
+      <button class="save" onclick="saveLog()">Set opslaan</button>
+    </div>
+
+    <div class="sct"><h2>Geschiedenis</h2></div>
+    <div class="hist">${histRows||'<div class="empty" style="margin-top:8px"><p>Nog niets gelogd voor deze oefening.</p></div>'}</div>
+  `;
+}
+
+/* ---------- log panel actions ---------- */
+function bump(d){
+  const el=$("#w"); let v=parseFloat((el.value||"0").replace(",","."))||0;
+  v=Math.max(0,Math.round((v+d)*100)/100); el.value=num(v);
+}
+function cnt(id,d){
+  const el=$("#"+id); let v=parseInt(el.textContent,10)||0; v=Math.max(0,v+d); el.textContent=v;
+}
+function saveLog(){
+  const w=parseFloat(($("#w").value||"").replace(",","."));
+  if(!(w>=0)||isNaN(w)){toast("Vul een geldig gewicht in");return;}
+  state.logs.push({
+    id:uid(), exerciseId:view.exId, date:$("#date").value||todayISO(),
+    weight:Math.round(w*100)/100, sets:parseInt($("#sets").textContent,10)||0,
+    reps:parseInt($("#reps").textContent,10)||0, note:($("#note").value||"").trim(),
+    created:Date.now()
+  });
+  persist(); toast("Opgeslagen ✓"); renderDetail();
+}
+function delLog(id){
+  if(!confirm("Deze set verwijderen?"))return;
+  state.logs=state.logs.filter(l=>l.id!==id); persist(); renderDetail();
+}
+
+/* ---------- navigation ---------- */
+function openDetail(id){view={name:"detail",exId:id};render();window.scrollTo(0,0);}
+function goHome(){view={name:"home"};render();window.scrollTo(0,0);}
+
+/* ---------- exercise add/edit sheet ---------- */
+const CATS=["Borst","Rug","Benen","Schouders","Biceps","Triceps","Core","Cardio","Overig"];
+let sheetCat="";
+function openExercise(id){
+  const ex=id?state.exercises.find(e=>e.id===id):null;
+  sheetCat=ex?ex.category||"":"";
+  const cats=CATS.map(c=>`<button class="catopt ${c===sheetCat?"sel":""}" onclick="pickCat('${c}',this)">${c}</button>`).join("");
+  scrim.innerHTML=`<div class="sheet">
+    <div class="grab"></div>
+    <h3>${ex?"Oefening bewerken":"Nieuwe oefening"}</h3>
+    <label class="fl">Naam</label>
+    <input id="exname" class="txt" type="text" placeholder="bv. Bench press" value="${ex?esc(ex.name):""}">
+    <label class="fl">Spiergroep</label>
+    <div class="catwrap" id="catwrap">${cats}</div>
+    <div class="actions">
+      <button class="btn ghost" onclick="closeSheet()">Annuleren</button>
+      <button class="btn primary" onclick="saveExercise('${id||""}')">${ex?"Opslaan":"Toevoegen"}</button>
+    </div>
+    ${ex?`<button class="danger-link" onclick="delExercise('${id}')">Oefening verwijderen</button>`:""}
+  </div>`;
+  scrim.classList.add("on");
+  setTimeout(()=>{const n=$("#exname");if(!ex)n.focus();},80);
+}
+function pickCat(c,btn){
+  sheetCat=(sheetCat===c)?"":c;
+  [...document.querySelectorAll("#catwrap .catopt")].forEach(b=>b.classList.remove("sel"));
+  if(sheetCat)btn.classList.add("sel");
+}
+function saveExercise(id){
+  const name=($("#exname").value||"").trim();
+  if(!name){toast("Geef de oefening een naam");return;}
+  if(id){
+    const ex=state.exercises.find(e=>e.id===id);
+    if(ex){ex.name=name;ex.category=sheetCat;}
+  }else{
+    state.exercises.push({id:uid(),name,category:sheetCat,created:Date.now()});
+    homeFilter="__all__";
+  }
+  persist(); closeSheet(); render();
+}
+function delExercise(id){
+  const ex=state.exercises.find(e=>e.id===id);
+  if(!confirm(`"${ex?ex.name:"Deze oefening"}" en alle gelogde sets verwijderen?`))return;
+  state.exercises=state.exercises.filter(e=>e.id!==id);
+  state.logs=state.logs.filter(l=>l.exerciseId!==id);
+  persist(); closeSheet(); goHome();
+}
+
+/* ---------- backup sheet ---------- */
+function openBackup(){
+  scrim.innerHTML=`<div class="sheet">
+    <div class="grab"></div>
+    <h3>Back-up & gegevens</h3>
+    <p style="color:var(--muted);font-size:14px;line-height:1.5;margin:0 0 4px">
+      Alles staat lokaal op dit toestel. Maak af en toe een back-up zodat je niets verliest.</p>
+    <div class="backup-row">
+      <button class="btn ghost" onclick="exportData()">Back-up downloaden</button>
+      <button class="btn ghost" onclick="document.getElementById('imp').click()">Back-up importeren</button>
+    </div>
+    <input id="imp" type="file" accept="application/json" class="hidden" onchange="importData(event)">
+    <button class="danger-link" onclick="wipe()">Alle gegevens wissen</button>
+    <div class="actions"><button class="btn ghost" onclick="closeSheet()">Sluiten</button></div>
+  </div>`;
+  scrim.classList.add("on");
+}
+function exportData(){
+  const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="gewicht-backup-"+todayISO()+".json";
+  document.body.appendChild(a);a.click();a.remove();
+  toast("Back-up gedownload");
+}
+function importData(e){
+  const f=e.target.files[0]; if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{try{
+    const p=JSON.parse(r.result);
+    if(!p.exercises||!p.logs)throw 0;
+    if(!confirm("Huidige gegevens vervangen door de back-up?"))return;
+    state.exercises=p.exercises;state.logs=p.logs;persist();closeSheet();goHome();toast("Back-up geladen");
+  }catch(err){toast("Ongeldig back-upbestand");}};
+  r.readAsText(f);
+}
+function wipe(){
+  if(!confirm("Echt ALLE oefeningen en sets wissen? Dit kan niet ongedaan worden."))return;
+  state={exercises:[],logs:[]};persist();closeSheet();goHome();
+}
+
+/* ---------- sheet plumbing ---------- */
+function closeSheet(){scrim.classList.remove("on");scrim.innerHTML="";}
+scrim.addEventListener("click",e=>{if(e.target===scrim)closeSheet();});
+
+render();
+</script>
+</body>
+</html>
